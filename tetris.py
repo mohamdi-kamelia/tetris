@@ -1,14 +1,15 @@
-
 import pygame
-<<<<<<< HEAD
 from menu import Menu
+from grid import Grid
+from Blocks import * 
 
 pygame.init()
 window = pygame.display.set_mode((400, 650))
+pygame.display.set_caption('Tetris')
 
-def nouvelle_partie():#(on dois faire lo code de jeu là pour que quand on clique sur nouvelle partie il ouvre drctement le jeu)
-    print("Nouvelle partie lancée.")
-
+gime_grid = Grid()
+block = ZBlock()
+gime_grid.print_grid()
 def options():
     print("Options lancées.")
 
@@ -18,7 +19,7 @@ def quitter():
 
 def main():
     menu = Menu(window)
-
+    grid = Grid() 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -27,41 +28,26 @@ def main():
             option_selected = menu.handle_event(event)
             if option_selected:
                 if option_selected == 1:
-                    nouvelle_partie()
+                    nouvelle_partie(menu, grid)
                 elif option_selected == 2:
                     options()
                 elif option_selected == 3:
                     quitter()
-
-        menu.draw()
+        window.fill((44 , 44 ,127))
+        if menu.game_state == "menu":
+            menu.draw()
+        elif menu.game_state == "grid":
+            grid.draw(window)  # Dessine la grille
+            block.draw(window)
+            """
+            grid.draw(window)  # Dessine la grille
+            block.draw(window)
+            """
         pygame.display.flip()
+
+def nouvelle_partie(menu, grid ):
+    menu.game_state = "grid"
+    
 
 if __name__ == "__main__":
     main()
-=======
-import sys
-
-pygame.init()
-
-dark_blue = (44, 44, 127)
-
-window = pygame.display.set_mode((400 ,650))
-pygame.display.set_caption("Tetris")
-
-clock = pygame.time.Clock()
-
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-
-    window.fill(dark_blue)
-    pygame.display.flip()
-    clock.tick(60)
-
-
-
-
->>>>>>> origin
-
