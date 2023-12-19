@@ -1,59 +1,35 @@
+import pygame
+from colors import colors
+
 class Grid:
     def __init__(self):
-        self.num_rows = 20
-        self.num_cols = 10
-        self.cell_size = 30
+    # Initialise la grille avec 20 lignes, 10 colonnes, et une taille de cellule de 30 pixels
+        self.num_rows = 21
+        self.num_cols = 13
+        self.cell_size = 31
+    # Initialise la grille à zéro (aucune cellule activée)
         self.grid = [[ 0 for j in range(self.num_cols)] for i in range (self.num_rows)]
-        self.colors = self.get_cell_colors()
+    # Initialise une liste de couleurs pour les différentes cellules
+        self.colors = colors.get_cell_colors()
 
     def print_grid(self):
+    # Affiche la grille dans la console (à des fins de débogage)
+    
         for row in range(self.num_rows):
             for column in range(self.num_cols):
                 print(self.grid[row][column], end = " ")
             print()
 
-    def get_cell_colors():
-        dark_grey = (26, 31, 40)
-        green = (47, 230, 23)
-        red = (232, 18, 18)
-        orange = (226, 116, 17)
-        purple = (166, 0, 247)
-        cyan = (21, 204, 209)
-        modern_yellow = (255, 255, 0)
-        modern_red = (255, 0, 0)
-        modern_pink = (255, 105, 180)
-        modern_light_blue = (173, 216, 230)
-        modern_violet = (138, 43, 226)
-        modern_teal = (0, 128, 128)
 
-        return [modern_teal, modern_pink, red, purple, modern_violet, modern_light_blue, green, modern_yellow]
-
-    def draw(self):
+    def draw(self, window):
+    # Dessine la grille en utilisant Pygame    
         for row in range(self.num_rows):
             for column in range(self.num_cols):
                 cell_value = self.grid[row][column]
-
-    '''
-        self.grid = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ]
-    '''
+    # Crée un rectangle (cellule) à l'emplacement correspondant dans la grille            
+            cell_rect = pygame.Rect(column*self.cell_size +1, row*self.cell_size  + 1,self.cell_size - 1, self.cell_size  - 1)
+            pygame.draw.rect(window , self.colors[cell_value] , cell_rect)
+    def place_block(self, block):
+        for tile in block.cells[block.rotation_state]:
+            row, col = tile.row, tile.column
+            self.grid[row][col] = block.block_id

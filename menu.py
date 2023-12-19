@@ -1,40 +1,49 @@
-
 import pygame
-from menu import Menu
+class Menu:
+    def __init__(self, surface):
+        self.surface = surface
+        self.font = pygame.font.Font("Christmas Cookies.woff", 36)  
+        self.options = ["Nouvelle partie", "Options", "Quitter"]
+        self.selected_option = 0
+        self.game_state = "menu"  # Nouvel attribut pour suivre l'état du jeu
+        # Chargement de fond
+        self.background_image = pygame.image.load("fond.jpg")
+        self.background_rect = self.background_image.get_rect()
+    
+        # Positionnement des boutons
+        button_width = 200
+        button_height = 50
+        self.button_rects = [
+            pygame.Rect((self.surface.get_width() - button_width) // 2, 200 + i * 70, button_width, button_height)
+            for i in range(len(self.options))
+        ]
 
-pygame.init()
-window = pygame.display.set_mode((400, 650))
+    def draw(self):
+        # Affichage de l'image de fond
+        self.surface.blit(self.background_image, self.background_rect)
 
-def nouvelle_partie():#(on dois faire lo code de jeu là pour que quand on clique sur nouvelle partie il ouvre drctement le jeu)
-    print("Nouvelle partie lancée.")
+        for i, option in enumerate(self.options):
+            # Choisissez la couleur en fonction de l'option
+            if i == 0:  # Nouvelle partie
+                color = (0, 200, 255)  # Bleu
+            elif i == 1:
+                color = (0 , 255, 0)
+            else :
+                color = (255, 0 , 0) 
 
-def options():
-    print("Options lancées.")
+            text = self.font.render(option, True, color)
+            text_rect = text.get_rect(center=(self.surface.get_width() // 2, 220 + i * 70))
+            self.surface.blit(text, text_rect) 
 
-def quitter():
-    pygame.quit()
-    quit()
+    def handle_event(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:  # Clic gauche de la souris
+                mouse_x, mouse_y = event.pos
+                for i, button_rect in enumerate(self.button_rects):
+                    if button_rect.collidepoint(mouse_x, mouse_y):
+                        if i == 0:  # Si "Nouvelle partie" est cliqué
+                            self.game_state = "grid"  # Change l'état du jeu vers la grille
+                        return i + 1  # Les options commencent à 1 dans votre exemple
+        return 0               
 
-def main():
-    menu = Menu(window)
-
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                quitter()
-
-            option_selected = menu.handle_event(event)
-            if option_selected:
-                if option_selected == 1:
-                    nouvelle_partie()
-                elif option_selected == 2:
-                    options()
-                elif option_selected == 3:
-                    quitter()
-
-        menu.draw()
-        pygame.display.flip()
-
-if __name__ == "__main__":
-    main()
 
