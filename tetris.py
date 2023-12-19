@@ -1,5 +1,6 @@
 import pygame
 import sys
+from grid import Grid
 
 pygame.init()
 
@@ -19,6 +20,8 @@ while True:
     window.fill(dark_blue)
     pygame.display.flip()
     clock.tick(60)
+
+    # we will greate a grid class 
 
 
 
