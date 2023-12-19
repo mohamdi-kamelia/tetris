@@ -5,7 +5,7 @@ pygame.init()
 
 dark_blue = (44, 44, 127)
 
-window = pygame.display.set_mode((400 ,650))
+window = pygame.display.set_mode((500 ,750))
 pygame.display.set_caption("Tetris")
 
 clock = pygame.time.Clock()
