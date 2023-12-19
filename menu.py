@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import pygame
 
 class Menu:
@@ -50,5 +51,7 @@ class Menu:
 
 
 
+=======
+>>>>>>> origin
 
 
