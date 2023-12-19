@@ -11,7 +11,7 @@ pygame.display.set_caption("Tetris")
 #clock = pygame.time.Clock()
 
 gime_grid = Grid()
-block = TBlock()
+block = SBlock()
 gime_grid.print_grid()
 def options():
     print("Options lancées.")
