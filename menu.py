@@ -6,7 +6,7 @@ class Menu:
         self.font = pygame.font.Font("Christmas Cookies.woff", 36)  
         self.options = ["Nouvelle partie", "Options", "Quitter"]
         self.selected_option = 0
-        self.game_state = "menu"  # Nouvel attribut pour suivre l'état du jeu
+        self.game_state = "menu"  # attribut pour suivre l'état du jeu
         # Chargement de fond
         self.background_image = pygame.image.load("fond.jpg")
         self.background_rect = self.background_image.get_rect()

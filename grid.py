@@ -1,5 +1,5 @@
 import pygame
-from colors import colors
+from colors import Colors
 class Grid:
     def __init__(self):
     # Initialise la grille avec 20 lignes, 10 colonnes, et une taille de cellule de 30 pixels
@@ -9,7 +9,7 @@ class Grid:
     # Initialise la grille à zéro (aucune cellule activée)
         self.grid = [[ 0 for j in range(self.num_cols)] for i in range (self.num_rows)]
     # Initialise une liste de couleurs pour les différentes cellules
-        self.colors = colors.get_cell_colors()
+        self.colors = Colors.get_cell_colors()
 
     def print_grid(self):
     # Affiche la grille dans la console (à des fins de débogage)

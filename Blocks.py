@@ -46,7 +46,7 @@ class SBlock(Block):
         }
 class TBlock(Block):
     def __init__(self):
-        super().__init__(block_id = 7)  
+        super().__init__(block_id = 6)  
         self.cells = {
             0: [positions(0, 1), positions(1, 0), positions(1, 1), positions(1, 2)],
             1: [positions(0, 1), positions(1, 1), positions(1, 2), positions(2, 1)],
@@ -55,7 +55,7 @@ class TBlock(Block):
         }
 class ZBlock(Block):
     def __init__(self):
-        super().__init__(block_id= 8)  
+        super().__init__(block_id= 7)  
         self.cells = {
             0: [positions(0, 0), positions(0, 1), positions(1, 1), positions(1, 2)],
             1: [positions(0, 2), positions(1, 1), positions(1, 2), positions(2, 1)],

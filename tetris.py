@@ -1,14 +1,18 @@
 import pygame
-from menu import Menu
+from menu import Menu 
 from grid import Grid
-from Blocks import * 
+import sys
+from Blocks import *
 
 pygame.init()
-window = pygame.display.set_mode((400, 650))
-pygame.display.set_caption('Tetris')
+window = pygame.display.set_mode((400 ,650))
+pygame.display.set_caption("Tetris")
+
+#clock = pygame.time.Clock()
 
 gime_grid = Grid()
-block = ZBlock()
+block = OBlock()
+block.move(8 ,3)
 gime_grid.print_grid()
 def options():
     print("Options lancées.")
@@ -19,7 +23,8 @@ def quitter():
 
 def main():
     menu = Menu(window)
-    grid = Grid() 
+    grid = Grid()
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -32,19 +37,16 @@ def main():
                 elif option_selected == 2:
                     options()
                 elif option_selected == 3:
-                    quitter()
-        window.fill((44 , 44 ,127))
+                    quitter()    
+
+        window.fill((44, 44, 127))
         if menu.game_state == "menu":
             menu.draw()
         elif menu.game_state == "grid":
             grid.draw(window)  # Dessine la grille
-            block.draw(window)
-            """
-            grid.draw(window)  # Dessine la grille
-            block.draw(window)
-            """
-        pygame.display.flip()
+            block.draw(window)    
 
+        pygame.display.flip()
 def nouvelle_partie(menu, grid ):
     menu.game_state = "grid"
     
