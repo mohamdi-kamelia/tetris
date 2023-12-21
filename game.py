@@ -2,11 +2,26 @@ from grid import Grid
 from Blocks import  *
 import random
 class  Game:
-    def __init__(self):
+    def __init__(self, window_height, window_width):
         self.grid = Grid()
         self.Blocks = [IBlock(), JBlock() ,LBlock(), OBlock(), SBlock(), TBlock() , ZBlock()]
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
+        self.window_width = window_width
+        self.window_height = window_height
+        #self.move_left_pressed = False
+        #self.move_right_pressed = False
+        #self.move_down_pressed = False
+
+    def handle_input(self):
+        if self.move_left:
+            self.move_left()
+
+        if self.move_right:
+            self.move_right()
+
+        if self.move_down:
+            self.move_down()    
 
     def get_random_block(self):
         if len(self.Blocks) == 0:
@@ -17,11 +32,13 @@ class  Game:
     
     def move_left(self):
         if self.block_inside(offset_columns=-1):
-           self.current_block.move(0, -1)
+           if self.current_block.column_offset > 0:
+               self.current_block.move(0, -1)
 
     def move_right(self):
         if self.block_inside(offset_columns=1):
-            self.current_block.move(0, 1)  
+            #if self.current_block.column_offset + self.current_block.get_max_column() < self.window_width / self.grid.cell_size - 1:
+                self.current_block.move(0, 1)  
 
     def move_down(self):
         if self.block_inside(offset_rows=1):
@@ -54,9 +71,17 @@ class  Game:
         for tile in tiles:
             if not (0 <= tile.row + position.row < self.grid.num_rows and 0 <= tile.column + position.column < self.grid.num_cols):
                 return False
-            if not self.grid.is_inside(tile.row + position.row, tile.column + position.column):
+        # Vérifiez la collision avec d'autres blocs dans la grille
+        for tile in tiles:
+            if not self.grid.is_inside(tile.row + position.row, tile.column + position.column) or \
+               self.grid.grid[tile.row + position.row][tile.column + position.column] != 0:
                 return False
         return True
+            #if not (0 <= tile.column + position.column < self.window_width / self.grid.cell_size):
+                #return False
+            #if not self.grid.is_inside(tile.row + position.row, tile.column + position.column):
+                #return False
+        #return True
 
 
 
@@ -67,6 +92,9 @@ class  Game:
     def draw(self, window):
         self.grid.draw(window)
         self.current_block.draw(window)
+
+
+
 
 
 """

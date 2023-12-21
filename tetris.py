@@ -10,7 +10,7 @@ pygame.display.set_caption("Tetris")
 
 #clock = pygame.time.Clock()
 
-game = Game()
+#game = Game()
 
 def options():
     print("Options lancées.")
@@ -21,7 +21,7 @@ def quitter():
 
 def main():
     menu = Menu(window)
-    game = Game()
+    game = Game(400, 650)
 
     while True:
         for event in pygame.event.get():
