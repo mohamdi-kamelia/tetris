@@ -1,44 +1,72 @@
-# tetris.py
-import pygame
 from grid import Grid
-from Blocks import *
-
-class Tetris:
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
+from Blocks import  *
+import random
+class  Game:
+    def __init__(self):
         self.grid = Grid()
-        self.current_piece = self.new_piece()
-        self.game_over = False
-        self.score = 0
+        self.Blocks = [IBlock(), JBlock() ,LBlock(), OBlock(), SBlock(), TBlock() , ZBlock()]
+        self.current_block = self.get_random_block()
+        self.next_block = self.get_random_block()
 
-    def new_piece(self):
-        # Logique pour créer une nouvelle pièce (utilisez votre propre logique)
-        pass
-
+    def get_random_block(self):
+        if len(self.Blocks) == 0:
+            self.Blocks =  [IBlock(), JBlock() ,LBlock(), OBlock(), SBlock(), TBlock() , ZBlock()]
+        block = random.choice(self.Blocks)
+        self.Blocks.remove(block)
+        return block
+    
     def move_left(self):
-        # Logique pour déplacer la pièce à gauche
-        pass
+        if self.block_inside(offset_columns=-1):
+           self.current_block.move(0, -1)
 
     def move_right(self):
-        # Logique pour déplacer la pièce à droite
-        pass
+        if self.block_inside(offset_columns=1):
+            self.current_block.move(0, 1)  
 
     def move_down(self):
-        # Logique pour déplacer la pièce vers le bas
-        pass
+        if self.block_inside(offset_rows=1):
+            self.current_block.move(1, 0)
+        else:
+            # Si le bloc ne peut pas descendre, placez-le sur la grille et générez un nouveau bloc
+            self.grid.place_block(self.current_block)
+            self.current_block = self.next_block
+            self.next_block = self.get_random_block()                 
 
-    def rotate(self):
-        # Logique pour faire tourner la pièce
-        pass
+    #def move_left(self):
+        #self.current_block.move(0 , -1)
+        #if self.block_inside() == False:
+            #self.current_block.move(0 , 1)
+           
+    #def move_right(self):
+        #self.current_block.move(0 , 1)
+        #if self.block_inside() == False:
+            #self.current_block.move(0 , -1)
+        
+    #def move_down(self):
+        #self.current_block.move(1 , 0)
+        #if self.block_inside() == False:
+            #self.current_block.move(-1 , 0)
 
-    def update(self):
-        # Logique pour mettre à jour le jeu (par exemple, détection de collision, suppression de lignes, etc.)
-        pass
+    def block_inside(self, offset_rows=0, offset_columns=0):
+        position = positions(self.current_block.row_offset + offset_rows, self.current_block.column_offset + offset_columns)
+        #position = positions(position.row + self.row_offset, position.column + self.column_offset)
+        tiles = self.current_block.get_cell_positions()
+        for tile in tiles:
+            if not (0 <= tile.row + position.row < self.grid.num_rows and 0 <= tile.column + position.column < self.grid.num_cols):
+                return False
+            if not self.grid.is_inside(tile.row + position.row, tile.column + position.column):
+                return False
+        return True
 
+
+
+        #for tile in tiles:
+            #if not self.grid.is_inside(tile.row + position.row, tile.column + position.column):
+                #return False
+            #return True
     def draw(self, window):
-        # Logique pour dessiner la grille, la pièce en cours, etc.
-        pass
+        self.grid.draw(window)
+        self.current_block.draw(window)
 
 
 """
