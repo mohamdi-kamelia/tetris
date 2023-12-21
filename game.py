@@ -14,25 +14,47 @@ class  Game:
         block = random.choice(self.Blocks)
         self.Blocks.remove(block)
         return block
+    
     def move_left(self):
-        self.current_block.move(0 , -1)
-        if self.block_inside() == False:
-            self.current_block.move(0 , 1)
+        if self.block_inside(offset_columns=-1):
+           self.current_block.move(0, -1)
+
     def move_right(self):
-        self.current_block.move(0 , 1)
-        if self.block_inside() == False:
-            self.current_block.move(0 , -1)
+        if self.block_inside(offset_columns=1):
+            self.current_block.move(0, 1)  
+
     def move_down(self):
-        self.current_block.move(1 , 0)
-        if self.block_inside() == False:
-            self.current_block.move(-1 , 0)
-    def block_inside(self):
-        position = positions(position.row + self.row_offset, position.column + self.column_offset)
+        if self.block_inside(offset_rows= 1):
+            self.current_block.move(1, 0)
+        else:
+            #Si le bloc ne peut pas descendre, placez-le sur la grille et générez un nouveau bloc
+            self.grid.place_block(self.current_block)
+            self.current_block = self.next_block
+            self.next_block = self.get_random_block()
+            
+    def lock_block(self):
+        tiles = self.current_block.get_cell_positions()
+        for position in tiles :
+            self.grid.grid[position.row][position.column] = self.current_block.index
+        self.current_block = self.next_block
+        self.current_block = self.get_random_block() 
+    def rotate(self):
+        self.current_block.rotate()  
+        if self.block_inside() == False  :
+            self.current_block.undo_rotation()          
+
+    def block_inside(self, offset_rows=0, offset_columns=0):
+        position = positions(self.current_block.row_offset + offset_rows, self.current_block.column_offset + offset_columns)
+        #position = positions(position.row + self.row_offset, position.column + self.column_offset)
         tiles = self.current_block.get_cell_positions()
         for tile in tiles:
-            if self.grid.is_inside(tile.row , tile.column) == False:
+            if not (0 <= tile.row + position.row < self.grid.num_rows and 0 <= tile.column + position.column < self.grid.num_cols):
                 return False
-            return True
+            if not self.grid.is_inside(tile.row + position.row, tile.column + position.column):
+                return False
+        return True
+
     def draw(self, window):
         self.grid.draw(window)
         self.current_block.draw(window)
+
