@@ -12,6 +12,7 @@ next_surface = title_font.render("Next", True, Colors.purple)
 game_over_surface = title_font.render("GAME OVER", True, Colors.green)
 score_rect = pygame.Rect(420, 55, 170, 60)
 next_rect = pygame.Rect(420, 215, 170, 180)
+return_to_menu_rect = pygame.Rect(420, 300, 170, 60)  # Ajout du bouton "Retour au menu"
 window = pygame.display.set_mode((600, 680))
 pygame.display.set_caption("Tetris")
 
@@ -40,6 +41,13 @@ while True:
                 pygame.quit()
                 sys.exit()
 
+        # Gestion du clic sur le bouton "Retour au menu"
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if return_to_menu_rect.collidepoint(event.pos):
+                game.game_over = False
+                game.reset()
+                menu.game_state = "menu"
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT and game.game_over == False:
                 game.move_left()
@@ -64,13 +72,22 @@ while True:
     window.blit(next_surface, (475, 180, 50, 50))
     if game.game_over == True:
         window.blit(game_over_surface, (420, 450, 50, 50))
+
     pygame.draw.rect(window, Colors.modern_light_blue, score_rect, 0, 10)
     window.blit(score_value_surface, score_value_surface.get_rect(centerx=score_rect.centerx,
                                                                    centery=score_rect.centery))
     pygame.draw.rect(window, Colors.modern_light_blue, next_rect, 0, 10)
+
+    # Dessin du bouton "Retour au menu"
+    pygame.draw.rect(window, Colors.modern_light_blue, return_to_menu_rect, 0, 10)
+    return_to_menu_text = title_font.render("Retour au menu", True, Colors.modern_red)
+    window.blit(return_to_menu_text, return_to_menu_rect.move(40, 40))
+
     game.draw(window)
     if menu.game_state == "menu":
         menu.draw()
+
     pygame.display.update()
+
 
 
