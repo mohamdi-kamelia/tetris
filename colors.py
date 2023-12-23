@@ -2,7 +2,7 @@ class Colors:
     #dark_grey = (26, 31, 40)
     green = (47, 230, 23)
     red = (232, 18, 18)
-    #orange = (226, 116, 17)
+    orange = (226, 116, 17)
     purple = (166, 0, 247)
     cyan = (21, 204, 209)
     modern_yellow = (255, 255, 0)
@@ -12,6 +12,7 @@ class Colors:
     modern_violet = (138, 43, 226)
     modern_teal = (0, 128, 128)
     dark_blue = (44, 44, 127)
+    white = (255, 255, 255)
     
 
     @classmethod

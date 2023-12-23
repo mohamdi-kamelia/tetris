@@ -6,10 +6,10 @@ from colors import Colors
 
 pygame.init()
 
-title_font = pygame.font.Font(None, 40)
+title_font = pygame.font.Font(None, 30)
 score_surface = title_font.render("Score", True, Colors.modern_red)
 next_surface = title_font.render("Next", True, Colors.purple)
-game_over_surface = title_font.render("GAME OVER", True, Colors.green)
+game_over_surface = title_font.render("GAME OVER", True, Colors.modern_red)
 score_rect = pygame.Rect(420, 55, 170, 60)
 next_rect = pygame.Rect(420, 215, 170, 180)
 return_to_menu_rect = pygame.Rect(420, 300, 170, 60)  # Ajout du bouton "Retour au menu"
@@ -78,10 +78,11 @@ while True:
                                                                    centery=score_rect.centery))
     pygame.draw.rect(window, Colors.modern_light_blue, next_rect, 0, 10)
 
+    return_to_menu_rect = pygame.Rect(420, 500, 170, 60)
     # Dessin du bouton "Retour au menu"
     pygame.draw.rect(window, Colors.modern_light_blue, return_to_menu_rect, 0, 10)
     return_to_menu_text = title_font.render("Retour au menu", True, Colors.modern_red)
-    window.blit(return_to_menu_text, return_to_menu_rect.move(40, 40))
+    window.blit(return_to_menu_text, return_to_menu_rect.move(10, 10))
 
     game.draw(window)
     if menu.game_state == "menu":
