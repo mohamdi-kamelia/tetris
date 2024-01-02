@@ -1,16 +1,15 @@
-
 import pygame
 class Menu:
     def __init__(self, surface):
         self.surface = surface
-        self.font = pygame.font.Font("Christmas Cookies.woff", 36)  
+        self.font = pygame.font.Font("Christmas Cookies.woff", 40)  
         self.options = ["Nouvelle partie", "Options", "Quitter"]
         self.selected_option = 0
-        self.game_state = "menu"  # attribut pour suivre l'état du jeu
+        self.game_state = "menu"  # Nouvel attribut pour suivre l'état du jeu
         # Chargement de fond
         self.background_image = pygame.image.load("fond.jpg")
         self.background_rect = self.background_image.get_rect()
-
+    
         # Positionnement des boutons
         button_width = 200
         button_height = 50
@@ -34,7 +33,7 @@ class Menu:
 
             text = self.font.render(option, True, color)
             text_rect = text.get_rect(center=(self.surface.get_width() // 2, 220 + i * 70))
-            self.surface.blit(text, text_rect)
+            self.surface.blit(text, text_rect) 
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -45,7 +44,7 @@ class Menu:
                         if i == 0:  # Si "Nouvelle partie" est cliqué
                             self.game_state = "grid"  # Change l'état du jeu vers la grille
                         return i + 1  # Les options commencent à 1 dans votre exemple
-        return 0
+        return 0 
 
 
 

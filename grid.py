@@ -1,5 +1,5 @@
 import pygame
-from colors import colors
+from colors import Colors
 
 class Grid:
     def __init__(self):
@@ -9,9 +9,9 @@ class Grid:
         self.cell_size = 31
     # Initialise la grille à zéro (aucune cellule activée)
         self.grid = [[ 0 for j in range(self.num_cols)] for i in range (self.num_rows)]
-    # Initialise une liste de couleurs pour les différentes cellules
-        self.colors = colors.get_cell_colors()
-
+        # Initialise une liste de couleurs pour les différentes cellules
+        self.colors = Colors.get_cell_colors()
+    
     def print_grid(self):
     # Affiche la grille dans la console (à des fins de débogage)
     
@@ -19,23 +19,48 @@ class Grid:
             for column in range(self.num_cols):
                 print(self.grid[row][column], end = " ")
             print()
-
     def is_inside(self , row , column):
-        if row >= 0 and row < self.num_rows and column >= 0 and column < self.num_cols:
+        if row >= 0 and row < self.num_rows and column >= 0 and column  < self.num_cols:
             return True
         return False
-    def place_block(self, block):
-        for tile in block.cells[block.rotation_state]:
-            row, col = tile.row, tile.column
-            self.grid[row][col] = block.Block_id
+    def is_empty(self , row , column):
+        if self.grid[row][column] == 0:
+            return True
+        return False
+    def is_row_full(self , row):
+        for column in range(self.num_cols):
+            if self.grid[row][column] == 0 :
+                return False
+        return True
+    def clear_row(self, row):
+        for column in range (self.num_cols):
+            self.grid[row][column] = 0
+    def move_row_down(self, row , num_rows):
+        for column in range(self.num_cols):
+            self.grid[row+num_rows][column] = self.grid[row][column]
+            self.grid[row][column] = 0
+    def clear_full_rows(self):
+        completed = 0
+        for row in range(self.num_rows-1, 0, -1):
+            if self.is_row_full(row):
+                self.clear_row(row)
+                completed += 1
+            elif completed > 0:
+                self.move_row_down(row, completed)
+        return completed
+    def reset(self):
+        for row in range(self.num_rows):
+            for column in range(self.num_cols):
+                self.grid[row][column] = 0
 
+    
     def draw(self, window):
     # Dessine la grille en utilisant Pygame    
         for row in range(self.num_rows):
             for column in range(self.num_cols):
                 cell_value = self.grid[row][column]
                 # Crée un rectangle (cellule) à l'emplacement correspondant dans la grille            
-                cell_rect = pygame.Rect(column*self.cell_size +1, row*self.cell_size  + 1,self.cell_size - 1, self.cell_size  - 1)
-                pygame.draw.rect(window , self.colors[cell_value] , cell_rect)
+                cell_rect = pygame.Rect(column * self.cell_size +11, row * self.cell_size  + 11, self.cell_size - 1, self.cell_size  - 1)
+                pygame.draw.rect(window , self.colors[cell_value], cell_rect)
     
              
