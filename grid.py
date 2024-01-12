@@ -61,4 +61,10 @@ class Grid:
                 cell_value = self.grid[row][column]
                 # Crée un rectangle (cellule) à l'emplacement correspondant dans la grille            
                 cell_rect = pygame.Rect(column * self.cell_size +11, row * self.cell_size  + 11, self.cell_size - 1, self.cell_size  - 1)
+<<<<<<< HEAD
                 pygame.draw.rect(window , self.colors[cell_value], cell_rect)      
+=======
+                pygame.draw.rect(window , self.colors[cell_value], cell_rect)
+    
+             
+>>>>>>> kamelia

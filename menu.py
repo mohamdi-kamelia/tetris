@@ -2,7 +2,11 @@ import pygame
 class Menu:
     def __init__(self, surface):
         self.surface = surface
+<<<<<<< HEAD
         self.font = pygame.font.Font("Christmas Cookies.woff", 36)  
+=======
+        self.font = pygame.font.Font("Christmas Cookies.woff", 40)  
+>>>>>>> kamelia
         self.options = ["Nouvelle partie", "Options", "Quitter"]
         self.selected_option = 0
         self.game_state = "menu"  # Nouvel attribut pour suivre l'état du jeu
@@ -43,7 +47,13 @@ class Menu:
                     if button_rect.collidepoint(mouse_x, mouse_y):
                         if i == 0:  # Si "Nouvelle partie" est cliqué
                             self.game_state = "grid"  # Change l'état du jeu vers la grille
+<<<<<<< HEAD
                         return i + 1  # Les options commencent à 1 dans votre exemple
         return 0               
+=======
+                        return i + 1  
+        return 0 
+
+>>>>>>> kamelia
 
 

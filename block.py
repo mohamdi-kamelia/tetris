@@ -35,4 +35,12 @@ class Block:
         tiles = self.get_cell_positions()  # Utilisez get pour éviter une clé manquante
         for tile in tiles:
                 tile_rect = pygame.Rect(offset_x + tile.column * self.cell_size , offset_y + tile.row * self.cell_size , self.cell_size - 1, self.cell_size - 1)
+<<<<<<< HEAD
                 pygame.draw.rect(window, self.colors[self.id], tile_rect) 
+=======
+                pygame.draw.rect(window, self.colors[self.id], tile_rect) 
+
+
+ 
+
+>>>>>>> kamelia

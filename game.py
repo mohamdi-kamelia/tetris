@@ -1,5 +1,9 @@
 from grid import Grid
+<<<<<<< HEAD
 from blocks import *
+=======
+from Blocks import *
+>>>>>>> kamelia
 import random 
 import pygame
 class Game : 
@@ -89,5 +93,10 @@ class Game :
         elif self.next_block.id == 4:
             self.next_block.draw(window , 390, 280 )
         else:
+<<<<<<< HEAD
             self.next_block.draw(window, 370, 270 )
+=======
+            self.next_block.draw(window, 370, 270 ) 
+
+>>>>>>> kamelia
 

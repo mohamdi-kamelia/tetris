@@ -89,6 +89,10 @@ while True:
         menu.draw()
 
     pygame.display.update()
+<<<<<<< HEAD
 
 
 
+=======
+    
+>>>>>>> kamelia
