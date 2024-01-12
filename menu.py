@@ -43,7 +43,7 @@ class Menu:
                     if button_rect.collidepoint(mouse_x, mouse_y):
                         if i == 0:  # Si "Nouvelle partie" est cliqué
                             self.game_state = "grid"  # Change l'état du jeu vers la grille
-                        return i + 1  # Les options commencent à 1 dans votre exemple
+                        return i + 1  
         return 0 
 
 
