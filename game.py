@@ -1,9 +1,13 @@
 from grid import Grid
 <<<<<<< HEAD
+<<<<<<< HEAD
 from blocks import *
 =======
 from Blocks import *
 >>>>>>> kamelia
+=======
+from Blocks import *
+>>>>>>> b2630b668300a89442fed2605a4767503812117b
 import random 
 import pygame
 class Game : 

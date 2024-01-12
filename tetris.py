@@ -6,19 +6,23 @@ from colors import Colors
 
 pygame.init()
 
+# Définition de la police et des surfaces de texte
 title_font = pygame.font.Font(None, 30)
 score_surface = title_font.render("Score", True, Colors.modern_red)
 next_surface = title_font.render("Next", True, Colors.purple)
 game_over_surface = title_font.render("GAME OVER", True, Colors.modern_red)
+
+# Définition des rectangles pour les différentes zones de texte
 score_rect = pygame.Rect(420, 55, 170, 60)
 next_rect = pygame.Rect(420, 215, 170, 180)
 return_to_menu_rect = pygame.Rect(420, 300, 170, 60)  # Ajout du bouton "Retour au menu"
+# Création de la fenêtre de jeu
 window = pygame.display.set_mode((600, 680))
 pygame.display.set_caption("Tetris")
-
+# Initialisation du jeu et du menu
 game = Game()
 menu = Menu(window)
-
+# Configuration de l'événement de mise à jour du jeu
 GAME_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(GAME_UPDATE, 200)
 
@@ -27,7 +31,7 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
+        # Gestion des événements dans le menu
         option_selected = menu.handle_event(event)
         if option_selected:
             if option_selected == 1:
@@ -47,7 +51,7 @@ while True:
                 game.game_over = False
                 game.reset()
                 menu.game_state = "menu"
-
+        # Gestion des touches du clavier dans le jeu
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT and game.game_over == False:
                 game.move_left()
@@ -62,10 +66,10 @@ while True:
                 game.game_over = False
                 game.reset()
                 menu.game_state = "grid"
-
+        # Mise à jour du jeu à intervalles réguliers
         if event.type == GAME_UPDATE and game.game_over == False:
             game.move_down()
-
+    # Affichage des éléments graphiques
     score_value_surface = title_font.render(str(game.score), True, Colors.modern_violet)
     window.fill(Colors.dark_blue)
     window.blit(score_surface, (469, 20, 50, 50))
@@ -77,13 +81,13 @@ while True:
     window.blit(score_value_surface, score_value_surface.get_rect(centerx=score_rect.centerx,
                                                                    centery=score_rect.centery))
     pygame.draw.rect(window, Colors.modern_light_blue, next_rect, 0, 10)
-
-    return_to_menu_rect = pygame.Rect(420, 500, 170, 60)
+    
     # Dessin du bouton "Retour au menu"
     pygame.draw.rect(window, Colors.modern_light_blue, return_to_menu_rect, 0, 10)
+    return_to_menu_rect = pygame.Rect(420, 500, 170, 60)
     return_to_menu_text = title_font.render("Retour au menu", True, Colors.modern_red)
     window.blit(return_to_menu_text, return_to_menu_rect.move(10, 10))
-
+    # Affichage du jeu et du menu en fonction de l'état du jeu
     game.draw(window)
     if menu.game_state == "menu":
         menu.draw()
