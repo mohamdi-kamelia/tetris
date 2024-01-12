@@ -1,5 +1,5 @@
 from grid import Grid
-from blocks import *
+from Blocks import *
 import random 
 import pygame
 class Game : 
