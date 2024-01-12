@@ -1,6 +1,7 @@
 from grid import Grid
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 from blocks import *
 =======
 from Blocks import *
@@ -8,6 +9,9 @@ from Blocks import *
 =======
 from Blocks import *
 >>>>>>> b2630b668300a89442fed2605a4767503812117b
+=======
+from Blocks import *
+>>>>>>> kamelia
 import random 
 import pygame
 class Game : 
@@ -98,7 +102,12 @@ class Game :
             self.next_block.draw(window , 390, 280 )
         else:
 <<<<<<< HEAD
+<<<<<<< HEAD
             self.next_block.draw(window, 370, 270 )
+=======
+            self.next_block.draw(window, 370, 270 ) 
+
+>>>>>>> kamelia
 =======
             self.next_block.draw(window, 370, 270 ) 
 

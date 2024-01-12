@@ -18,7 +18,11 @@ class Colors:
     @classmethod
     def get_cell_colors(cls):
 <<<<<<< HEAD
+<<<<<<< HEAD
         return [cls.modern_teal, cls.modern_pink, cls.red, cls.purple, cls.modern_violet, cls.cyan, cls.green, cls.modern_yellow]
+=======
+        return [cls.modern_teal, cls.modern_pink, cls.red, cls.purple, cls.modern_violet, cls.cyan, cls.green, cls.modern_yellow]
+>>>>>>> kamelia
 =======
         return [cls.modern_teal, cls.modern_pink, cls.red, cls.purple, cls.modern_violet, cls.cyan, cls.green, cls.modern_yellow]
 >>>>>>> kamelia
